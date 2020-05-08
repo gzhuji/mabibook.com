@@ -1,0 +1,30 @@
+﻿<html> 
+<head> 
+<title>>>> Loading>>> </title> 
+</head> 
+<body bgcolor="#FFFFFF" text="#000000"> 
+<p> </p><tr> <td width=724> 
+<p align=center><font color="red" size="2">Please wait......</font></p></td></tr><tr> 
+<td width="724"> 
+<p align=center> 
+<form name=loading> 
+<div align=center> 
+<p> 
+<input type=text name=chart size=46 style="font-family:Arial; font-weight:bolder; color:rgb(124,119,119); background-color:white; padding:0px; border-style:none;"> 
+<br><input type=text name=percent size=46 style="color:rgb(138,134,134); text-align:center; border-width:medium; border-style:none;"><script>var bar = 0 
+var line = "||" 
+var amount ="||" 
+count() 
+function count(){ 
+bar= bar+2 
+amount =amount + line 
+document.loading.chart.value=amount 
+document.loading.percent.value=bar+"%" 
+if (bar<99) 
+{ setTimeout("count()",10); } 
+else 
+{ window.location = "http://mabibook.com/tw"; } 
+}</script> 
+
+</body> 
+</html> 

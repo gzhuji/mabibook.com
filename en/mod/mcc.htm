@@ -1,0 +1,327 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<TITLE>Mabinogi Character Color Calculator</TITLE>
+<STYLE>
+.row {
+	CLEAR: both
+}
+.text {
+	MARGIN: 5px
+}
+.label {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; WIDTH: 140px; PADDING-TOP: 5px; TEXT-ALIGN: right
+}
+.desi {
+	TEXT-ALIGN: left
+}
+.floatD {
+	FLOAT: left; MARGIN: 5px; WIDTH: 400px
+}
+.spacer {
+	CLEAR: both
+}
+.input {
+	BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; BORDER-BOTTOM-WIDTH: 1px; BORDER-RIGHT-WIDTH: 1px
+}
+.showc {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-LEFT: black 1px solid; WIDTH: 32px; BORDER-BOTTOM: black 1px solid; HEIGHT: 32px
+}
+.STYLE1 {
+	COLOR: #000000
+}
+.STYLE2 {
+	FONT-SIZE: 10px
+}
+.style3 {font-size: 12px}
+.style4 {font-size: 14px}
+</STYLE>
+
+<SCRIPT>
+			//将数字转16进位大写
+			function hex(num){
+				return num.toString(16).toUpperCase();
+			}
+			
+			//简化用id叫物件
+			function $(str){
+				return document.getElementById(str);
+			}
+			
+			//将16进位转数字
+			function hex2num(hex){
+				return parseInt(hex, 16);
+			}
+			
+			
+			//计算并显示颜色
+			function calc(){
+				
+				//程序概要
+				//1.先计算id是否合规格(中6英12)
+				//2.计算颜色
+				
+				
+				
+				//定义对象
+				var dId = $("d_id");
+				var dColor = $("d_color");
+				var dW = $("d_w");
+				var dB = $("d_b");
+				var dW2 = $("d_w2");
+				var dB2 = $("d_b2");
+				
+				
+				//抓取网页中输入的ID
+				var strId = dId.value;
+				//储存颜色用array,r,g,b
+				var intColor = new Array(0, 0, 0);
+				//储存共享多少字
+				var intWord = 0;
+				
+				for(var i = 0; i < strId.length; i++){
+					//储存要处理的字符
+					var intChar = strId.charCodeAt(i);
+					//计算字数，如果code>255表示为中文(2字)，否则为英文(1字)
+					intWord += (intChar > 255)? 2 : 1;
+					//储存计算色码用的变量
+					intColor[i % 3] += intChar;
+				}
+				
+				//储存是否开启过滤字符串长度不足
+				var boolWordlen = $("d_wordlen").checked;
+				
+				//字数够
+				//公式:
+				//R=(((第1.4.7.~字)*101)mod97)+159
+				//G=(((第2.5.8.~字)*101)mod97)+159
+				//B=(((第3.6.9.~字)*101)mod97)+159
+				//计算颜色
+				intColor[0] = (intColor[0] * 101) % 97 + 159;
+				intColor[1] = (intColor[1] * 101) % 97 + 159;
+				intColor[2] = (intColor[2] * 101) % 97 + 159;
+				
+				if(boolWordlen && (intWord <= 2 || intWord >=13)){
+					//如果字数不够或是超过
+					dW.innerHTML = "...";
+					dB.innerHTML = "...";
+					dW2.innerHTML = "...";
+					dB2.innerHTML = "...";
+					dColor.innerHTML = "...";
+					dW.color = "black";
+					dB.color = "white";
+					dW2.color = "black";
+					dB2.color = "white";
+				}else{
+					//如果有限制长度->12,没有的话->65536
+					dId.maxLength = boolWordlen ? 12 : 65536;
+					
+					//转成HTML色码
+					var strColor = hex(intColor[0]) + hex(intColor[1]) + hex(intColor[2]);
+					
+					//把角色名称放入显示
+					dW.innerHTML = strId;
+					dB.innerHTML = strId;
+					dW2.innerHTML = strId;
+					dB2.innerHTML = strId;
+					
+					//显示色码
+					dColor.innerHTML = intColor.toString() + "&#32;&#32;#" + strColor;
+					
+					//调整显示颜色
+					dW.color = strColor;
+					dB.color = strColor;
+					dW2.color = strColor;
+					dB2.color = strColor;
+				}
+				
+				
+				//以下为使用建议色彩部分程序代码
+				
+				//先分解颜色字符串
+				//颜色字符串#RRGGBB, R,G,B
+				
+				//取得参照颜色的字符串
+				var strRefColor = $("d_refcolor").value;
+				//建立放参照颜色的变量
+				var intRefColor = new Array(0, 0, 0);
+				//开始解析颜色字符串
+				if(strRefColor.charAt(0) == "#"){
+					//如果用HTML表示法
+					intRefColor[0] = hex2num(strRefColor.substring(1, 3));
+					intRefColor[1] = hex2num(strRefColor.substring(3, 5));
+					intRefColor[2] = hex2num(strRefColor.substring(5, 7));
+				}else{
+					//不是用HTML表示法, 就用split分解
+					var tmpArr = strRefColor.split(",");
+					//检查数组长度是否足够, 不足表示有问题
+					if(tmpArr.length >= 3){
+						intRefColor[0] = parseInt(tmpArr[0]);
+						intRefColor[1] = parseInt(tmpArr[1]);
+						intRefColor[2] = parseInt(tmpArr[2]);
+					}
+				}
+				
+				//过滤非数字情况
+				if(isNaN(intRefColor[0])){
+					intRefColor[0] = 0;
+				}
+				
+				if(isNaN(intRefColor[1])){
+					intRefColor[1] = 0;
+				}
+				
+				if(isNaN(intRefColor[2])){
+					intRefColor[2] = 0;
+				}
+				
+				//只要哪个色码小于159表示有问题
+				if(intRefColor[0] < 159 || intRefColor[1] < 159 || intRefColor[2] < 159){
+					//显示错误讯息
+					$("d_showcolorw").innerHTML = "色码不符合要求";
+				}else{
+					//没有问题就显示颜色
+					//转成HTML色码
+					var strColor = hex(intRefColor[0]) + hex(intRefColor[1]) + hex(intRefColor[2]);
+					//显示颜色
+					$("d_showcolor").style.background = "#" + strColor;
+					//显示色码
+					$("d_showcolorw").innerHTML = intRefColor.toString() + "&#32;&#32;#" + strColor;
+				}
+				
+				
+				
+				//以下为启动对照
+				//先检查是否启动提示功能
+				if($("d_refcolorc").checked && intRefColor[0] >= 159 && intRefColor[1] >= 159 && intRefColor[2] >= 159){
+					//建立参照数字, 此数字必须在0~96间
+					var refNum = new Array();
+					//把两个颜色相减后 取余数
+					refNum[0] = (intRefColor[0] - intColor[0] + 97) % 97;
+					refNum[1] = (intRefColor[1] - intColor[1] + 97) % 97;
+					refNum[2] = (intRefColor[2] - intColor[2] + 97) % 97;
+					//显示计算过的文字
+					$("d_ref1").innerHTML = strRefWord[refNum[0]];
+					$("d_ref2").innerHTML = strRefWord[refNum[1]];
+					$("d_ref3").innerHTML = strRefWord[refNum[2]];
+				}
+				
+			}
+			
+			//字码部分 参考http://www.cns11643.gov.tw/web/word.jsp
+			//中文字区 4E00 ～ 9FFF
+			function refWord(refNum){
+				var tmpStr = new Array();
+				//中文字集区
+				for(var i = 0x9FFF; i >= 0x4E00; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//英文大写区A(41)Z(5A)
+				for(var i = 0x005A; i >= 0x0041; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//英文小写区a(61)z(7A)
+				for(var i = 0x007A; i >= 0x0061; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//数字区0(30)9(39)
+				for(var i = 0x0039; i >= 0x0030; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//合并字符串后 传回
+				return tmpStr.reverse().join("");
+			}
+			
+			
+			//建立索引参考字符用数组
+			var strRefWord = new Array();
+			//暴力索引
+			for(var i = 96; i >= 0; i--){
+				strRefWord[i] = refWord(i);
+			}
+			
+			//因为ie和ff,o的input最大长度不同,要做测试
+			var inputmaxlen;
+			
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2900.5512" name=GENERATOR></HEAD>
+<BODY onLoad="$('d_his').style.display='none';">
+<H1> Mabinogi Character Color Calculator<BR>
+</H1>
+<HR noShade>
+
+<DIV class=spacer></DIV>
+<DIV class=spacer></DIV>
+<HR noShade>
+
+<DIV class=floatD>
+<DIV><SPAN class=label>Input ID Here: </SPAN><SPAN class=desi>
+<INPUT class=input 
+id=d_id onkeyup=calc(); onchange=calc();> </SPAN></DIV>
+<DIV><SPAN class=label>Color : </SPAN><SPAN class=desi><A 
+id=d_color></A></SPAN></DIV>
+</DIV>
+<TABLE borderColor=#000000 cellSpacing=0 cellPadding=5 border=1>
+  <TBODY>
+  <TR>
+    <TD>Color</TD>
+    <TD>↓↓BLACK↓↓</TD>
+    <TD>↓↓WHITE↓↓</TD>
+  </TR>
+  <TR>
+    <TD>Preview</TD>
+    <TD bgColor=black><FONT id=d_b face="MS PGothic"></FONT><BR><FONT id=d_b2 
+      style="FONT-SIZE: 9pt" face="MS PGothic"></FONT></TD>
+    <TD bgColor=white><FONT id=d_w face="MS PGothic"></FONT><BR><FONT id=d_w2 
+      style="FONT-SIZE: 9pt" face="MS PGothic"></FONT></TD></TR></TBODY></TABLE>
+<DIV class=spacer></DIV>
+<DIV><SPAN class=label>Option : </SPAN><SPAN class=desi>
+  <INPUT onmouseup=calc(); 
+class=input id=d_wordlen onkeyup=calc(); onclick=calc(); type=checkbox CHECKED 
+onchange=calc();> <LABEL onmouseup=calc(); onkeyup=calc(); onclick=calc(); 
+for=d_wordlen onchange="calc();">Limit Length</LABEL>
+  <LABEL onmouseup=calc(); onkeyup=calc(); onclick=calc(); 
+for=d_refcolorc onchange="calc();"></LABEL>
+ </SPAN></DIV>
+<DIV></DIV>
+<DIV><SPAN class=label></SPAN></DIV>
+<DIV>
+  <p><SPAN class=label></SPAN></p>
+  <p>&nbsp;</p>
+</DIV>
+<p align="center" class="style4">&nbsp;</p>
+<p>&nbsp;</p>
+<HR noShade>
+
+<TABLE cellSpacing=0 cellPadding=0 width=418 align=center border=0>
+  <TBODY>
+  <TR>
+    <TH scope=col width=418>&nbsp;</TH>
+  </TR>
+  <TR>
+    <TD height=55>
+      <P class=STYLE2 align=center><span class="style3">公式提供：巴哈姆特seatiger，網頁程式撰寫：<a href="http://s93.tku.edu.tw/~493370067/pyms/mabi/mabi_id.htm" target="_blank">mingray</a> </span></P>
+      <P class=STYLE2 align=center>Mabibook.com</P></TD></TR></TBODY></TABLE>
+<P class=STYLE2 align=center>&nbsp;</P>
+<SCRIPT>
+			/*色码表
+			for(var i = 0; i < 97; i++){
+				document.write(["<br/>", i, "<br/>", strRefWord[i]].join(""))
+			}
+			*/
+		</SCRIPT>
+
+<SCRIPT src="mcc/ystat.js" 
+type=text/javascript></SCRIPT>
+
+</BODY></HTML>

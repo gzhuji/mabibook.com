@@ -1,0 +1,585 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<TITLE>洛奇角色名字颜色计算器 / Mabinogi Character Color Calculator</TITLE>
+<STYLE>
+.row {
+	CLEAR: both
+}
+.text {
+	MARGIN: 5px
+}
+.label {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; WIDTH: 140px; PADDING-TOP: 5px; TEXT-ALIGN: right
+}
+.desi {
+	TEXT-ALIGN: left
+}
+.floatD {
+	FLOAT: left; MARGIN: 5px; WIDTH: 400px
+}
+.spacer {
+	CLEAR: both
+}
+.input {
+	BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; BORDER-BOTTOM-WIDTH: 1px; BORDER-RIGHT-WIDTH: 1px
+}
+.showc {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-LEFT: black 1px solid; WIDTH: 32px; BORDER-BOTTOM: black 1px solid; HEIGHT: 32px
+}
+.STYLE1 {
+	COLOR: #000000
+}
+.STYLE2 {
+	FONT-SIZE: 10px
+}
+.style3 {font-size: 12px}
+.style4 {font-size: 14px}
+</STYLE>
+
+<SCRIPT>
+			//将数字转16进位大写
+			function hex(num){
+				return num.toString(16).toUpperCase();
+			}
+			
+			//简化用id叫物件
+			function $(str){
+				return document.getElementById(str);
+			}
+			
+			//将16进位转数字
+			function hex2num(hex){
+				return parseInt(hex, 16);
+			}
+			
+			
+			//计算并显示颜色
+			function calc(){
+				
+				//程序概要
+				//1.先计算id是否合规格(中6英12)
+				//2.计算颜色
+				
+				
+				
+				//定义对象
+				var dId = $("d_id");
+				var dColor = $("d_color");
+				var dW = $("d_w");
+				var dB = $("d_b");
+				var dW2 = $("d_w2");
+				var dB2 = $("d_b2");
+				
+				
+				//抓取网页中输入的ID
+				var strId = dId.value;
+				//储存颜色用array,r,g,b
+				var intColor = new Array(0, 0, 0);
+				//储存共享多少字
+				var intWord = 0;
+				
+				for(var i = 0; i < strId.length; i++){
+					//储存要处理的字符
+					var intChar = strId.charCodeAt(i);
+					//计算字数，如果code>255表示为中文(2字)，否则为英文(1字)
+					intWord += (intChar > 255)? 2 : 1;
+					//储存计算色码用的变量
+					intColor[i % 3] += intChar;
+				}
+				
+				//储存是否开启过滤字符串长度不足
+				var boolWordlen = $("d_wordlen").checked;
+				
+				//字数够
+				//公式:
+				//R=(((第1.4.7.~字)*101)mod97)+159
+				//G=(((第2.5.8.~字)*101)mod97)+159
+				//B=(((第3.6.9.~字)*101)mod97)+159
+				//计算颜色
+				intColor[0] = (intColor[0] * 101) % 97 + 159;
+				intColor[1] = (intColor[1] * 101) % 97 + 159;
+				intColor[2] = (intColor[2] * 101) % 97 + 159;
+				
+				if(boolWordlen && (intWord <= 2 || intWord >=13)){
+					//如果字数不够或是超过
+					dW.innerHTML = "字数不够或是超过";
+					dB.innerHTML = "字数不够或是超过";
+					dW2.innerHTML = "字数不够或是超过";
+					dB2.innerHTML = "字数不够或是超过";
+					dColor.innerHTML = "字数不够或是超过";
+					dW.color = "black";
+					dB.color = "white";
+					dW2.color = "black";
+					dB2.color = "white";
+				}else{
+					//如果有限制长度->12,没有的话->65536
+					dId.maxLength = boolWordlen ? 12 : 65536;
+					
+					//转成HTML色码
+					var strColor = hex(intColor[0]) + hex(intColor[1]) + hex(intColor[2]);
+					
+					//把角色名称放入显示
+					dW.innerHTML = strId;
+					dB.innerHTML = strId;
+					dW2.innerHTML = strId;
+					dB2.innerHTML = strId;
+					
+					//显示色码
+					dColor.innerHTML = intColor.toString() + "&#32;&#32;#" + strColor;
+					
+					//调整显示颜色
+					dW.color = strColor;
+					dB.color = strColor;
+					dW2.color = strColor;
+					dB2.color = strColor;
+				}
+				
+				
+				//以下为使用建议色彩部分程序代码
+				
+				//先分解颜色字符串
+				//颜色字符串#RRGGBB, R,G,B
+				
+				//取得参照颜色的字符串
+				var strRefColor = $("d_refcolor").value;
+				//建立放参照颜色的变量
+				var intRefColor = new Array(0, 0, 0);
+				//开始解析颜色字符串
+				if(strRefColor.charAt(0) == "#"){
+					//如果用HTML表示法
+					intRefColor[0] = hex2num(strRefColor.substring(1, 3));
+					intRefColor[1] = hex2num(strRefColor.substring(3, 5));
+					intRefColor[2] = hex2num(strRefColor.substring(5, 7));
+				}else{
+					//不是用HTML表示法, 就用split分解
+					var tmpArr = strRefColor.split(",");
+					//检查数组长度是否足够, 不足表示有问题
+					if(tmpArr.length >= 3){
+						intRefColor[0] = parseInt(tmpArr[0]);
+						intRefColor[1] = parseInt(tmpArr[1]);
+						intRefColor[2] = parseInt(tmpArr[2]);
+					}
+				}
+				
+				//过滤非数字情况
+				if(isNaN(intRefColor[0])){
+					intRefColor[0] = 0;
+				}
+				
+				if(isNaN(intRefColor[1])){
+					intRefColor[1] = 0;
+				}
+				
+				if(isNaN(intRefColor[2])){
+					intRefColor[2] = 0;
+				}
+				
+				//只要哪个色码小于159表示有问题
+				if(intRefColor[0] < 159 || intRefColor[1] < 159 || intRefColor[2] < 159){
+					//显示错误讯息
+					$("d_showcolorw").innerHTML = "色码不符合要求";
+				}else{
+					//没有问题就显示颜色
+					//转成HTML色码
+					var strColor = hex(intRefColor[0]) + hex(intRefColor[1]) + hex(intRefColor[2]);
+					//显示颜色
+					$("d_showcolor").style.background = "#" + strColor;
+					//显示色码
+					$("d_showcolorw").innerHTML = intRefColor.toString() + "&#32;&#32;#" + strColor;
+				}
+				
+				
+				
+				//以下为启动对照
+				//先检查是否启动提示功能
+				if($("d_refcolorc").checked && intRefColor[0] >= 159 && intRefColor[1] >= 159 && intRefColor[2] >= 159){
+					//建立参照数字, 此数字必须在0~96间
+					var refNum = new Array();
+					//把两个颜色相减后 取余数
+					refNum[0] = (intRefColor[0] - intColor[0] + 97) % 97;
+					refNum[1] = (intRefColor[1] - intColor[1] + 97) % 97;
+					refNum[2] = (intRefColor[2] - intColor[2] + 97) % 97;
+					//显示计算过的文字
+					$("d_ref1").innerHTML = strRefWord[refNum[0]];
+					$("d_ref2").innerHTML = strRefWord[refNum[1]];
+					$("d_ref3").innerHTML = strRefWord[refNum[2]];
+				}
+				
+			}
+			
+			//字码部分 参考http://www.cns11643.gov.tw/web/word.jsp
+			//中文字区 4E00 ～ 9FFF
+			function refWord(refNum){
+				var tmpStr = new Array();
+				//中文字集区
+				for(var i = 0x9FFF; i >= 0x4E00; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//英文大写区A(41)Z(5A)
+				for(var i = 0x005A; i >= 0x0041; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//英文小写区a(61)z(7A)
+				for(var i = 0x007A; i >= 0x0061; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//数字区0(30)9(39)
+				for(var i = 0x0039; i >= 0x0030; i-- ){
+					if( (i * 101) % 97 == refNum){
+						tmpStr[tmpStr.length] = String.fromCharCode(i);
+					}
+				}
+				//合并字符串后 传回
+				return tmpStr.reverse().join("");
+			}
+			
+			
+			//建立索引参考字符用数组
+			var strRefWord = new Array();
+			//暴力索引
+			for(var i = 96; i >= 0; i--){
+				strRefWord[i] = refWord(i);
+			}
+			
+			//因为ie和ff,o的input最大长度不同,要做测试
+			var inputmaxlen;
+			
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2900.5512" name=GENERATOR></HEAD>
+<BODY onLoad="$('d_his').style.display='none';">
+<H1>洛奇角色名字颜色计算器 / Mabinogi Character Color Calculator<BR></H1>
+<HR noShade>
+
+<DIV class=spacer>
+<DIV 
+class=floatD>角色ID颜色计算公式:<BR>R=(((第1.4.7.~字)*101)mod97)+159<BR>G=(((第2.5.8.~字)*101)mod97)+159<BR>B=(((第3.6.9.~字)*101)mod97)+159<BR>字为UCS-2(Unicode)码<BR>字一定是比灰色还亮的红绿蓝光混合<BR></DIV>
+<DIV 
+class=floatD>角色ID取名限制:<BR>‧只能用英文、数字、或是中文<BR>‧英文小写之后不能接英文大写<BR>‧英文之后不能接中文，可以接数字<BR>‧中文之后不能接英文，可以接数字<BR>‧中文算2，英文数字算1，共计要大于3，小于12<BR>‧第一字不能用数字</DIV></DIV>
+<DIV class=spacer></DIV>
+<HR noShade>
+
+<DIV class=floatD>
+<DIV><SPAN class=label>请输入ID : </SPAN><SPAN class=desi><INPUT class=input 
+id=d_id onkeyup=calc(); onchange=calc();> </SPAN></DIV>
+<DIV><SPAN class=label>色码 : </SPAN><SPAN class=desi><A 
+id=d_color></A></SPAN></DIV></DIV>
+<TABLE borderColor=#000000 cellSpacing=0 cellPadding=5 border=1>
+  <TBODY>
+  <TR>
+    <TD>颜色</TD>
+    <TD>↓↓黑色背景↓↓</TD>
+    <TD>↓↓白色背景↓↓</TD></TR>
+  <TR>
+    <TD>预览</TD>
+    <TD bgColor=black><FONT id=d_b face="MS PGothic"></FONT><BR><FONT id=d_b2 
+      style="FONT-SIZE: 9pt" face="MS PGothic"></FONT></TD>
+    <TD bgColor=white><FONT id=d_w face="MS PGothic"></FONT><BR><FONT id=d_w2 
+      style="FONT-SIZE: 9pt" face="MS PGothic"></FONT></TD></TR></TBODY></TABLE>
+<DIV class=spacer></DIV>
+<DIV><SPAN class=label>其他选项 : </SPAN><SPAN class=desi><INPUT onmouseup=calc(); 
+class=input id=d_wordlen onkeyup=calc(); onclick=calc(); type=checkbox CHECKED 
+onchange=calc();> <LABEL onmouseup=calc(); onkeyup=calc(); onclick=calc(); 
+for=d_wordlen onchange="calc();">过滤字符串长度</LABEL> <INPUT onmouseup=calc(); 
+class=input id=d_refcolorc onkeyup=calc(); onclick=calc(); type=checkbox 
+onchange=calc();> <LABEL onmouseup=calc(); onkeyup=calc(); onclick=calc(); 
+for=d_refcolorc onchange="calc();">指定色码（在下方填好色码选上此项会有推荐字在下方显示）</LABEL> </SPAN></DIV>
+<DIV><SPAN class=label>指定色码 : </SPAN><SPAN class=desi>
+<INPUT onmouseup=calc(); 
+class=input id=d_refcolor onkeyup=calc(); onchange=calc(); value=#ABCDEF> <SPAN 
+class=showc id=d_showcolor></SPAN><SPAN id=d_showcolorw></SPAN></SPAN></DIV>
+<DIV><SPAN class=label></SPAN><SPAN 
+class=desi>输入格式：#RRGGBB或是R,G,B，例如白色是#FFFFFF或是255,255,255，黑色是#000000或是0,0,0， 
+</SPAN></DIV>
+<DIV>
+  <p><SPAN class=label></SPAN><SPAN 
+class=desi>色码必须超过#9F9F9F或是159,159,159，红绿蓝光低于此亮度是不行的 </SPAN></p>
+  <p>&nbsp;</p>
+</DIV>
+<TABLE borderColor=#000000 cellSpacing=0 cellPadding=5 border=1>
+  <TBODY>
+  <TR>
+    <TD class=label>建议ID文字@1,4,7... : </TD>
+    <TD><SPAN id=d_ref1>.</SPAN> </TD></TR>
+  <TR>
+    <TD class=label>建议ID文字@2,5,8... : </TD>
+    <TD><SPAN id=d_ref2>.</SPAN> </TD></TR>
+  <TR>
+    <TD class=label>建议ID文字@3,6,9... : </TD>
+    <TD><SPAN id=d_ref3>.</SPAN> </TD></TR></TBODY></TABLE>
+<p align="center" class="style4">简易色码表</p>
+<table align="center" cellpadding="0" cellspacing="0">
+  <TR>
+    <TD align="middle" width="20%" bgColor="#ffffff"><span class="style3">白色<BR>
+      FFFFFF</span></TD>
+    <TD align="middle" width="20%" bgColor="#ff0000"><span class="style3">红色<BR>
+      FF0000</span></TD>
+    <TD align="middle" width="20%" bgColor="#00ff00"><span class="style3">绿色<BR>
+      00FF00</span></TD>
+    <TD align="middle" width="20%" bgColor="#0000ff"><span class="style3">蓝色<BR>
+      0000FF</span></TD>
+    <TD align="middle" width="20%" bgColor="#ff00ff"><span class="style3">洋红<BR>
+      FF00FF</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#00ffff"><span class="style3">墨绿<BR>
+      00FFFF</span></TD>
+    <TD align="middle" bgColor="#ffff00"><span class="style3">黄色<BR>
+      FFFF00</span></TD>
+    <TD align="middle" bgColor="#000000"><span class="style3">黑色<BR>
+      000000</span></TD>
+    <TD align="middle" bgColor="#f0f8ff"><span class="style3">爱丽丝兰<BR>
+      F0F8FF</span></TD>
+    <TD align="middle" bgColor="#70db93"><span class="style3">碧绿<BR>
+      70DB93</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#5c3317"><span class="style3">巧克力色<BR>
+      5C3317</span></TD>
+    <TD align="middle" bgColor="#9f5f9f"><span class="style3">蓝紫色<BR>
+      9F5F9F</span></TD>
+    <TD align="middle" bgColor="#b5a642"><span class="style3">黄铜<BR>
+      B5A642</span></TD>
+    <TD align="middle" bgColor="#d9d919"><span class="style3">亮金<BR>
+      D9D919</span></TD>
+    <TD align="middle" bgColor="#a62aa2"><span class="style3">褐色<BR>
+      A62AA2</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#8c7853"><span class="style3">青铜1<BR>
+      8C7853</span></TD>
+    <TD align="middle" bgColor="#a67d3d"><span class="style3">青铜2<BR>
+      A67D3D</span></TD>
+    <TD align="middle" bgColor="#5f9f9f"><span class="style3">藏青<BR>
+      5F9F9F</span></TD>
+    <TD align="middle" bgColor="#d98719"><span class="style3">亮铜<BR>
+      D98719</span></TD>
+    <TD align="middle" bgColor="#b87333"><span class="style3">铜色<BR>
+      B87333</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#ff7f00"><span class="style3">珊瑚色<BR>
+      FF7F00</span></TD>
+    <TD align="middle" bgColor="#42426f"><span class="style3">矢车菊兰<BR>
+      42426F</span></TD>
+    <TD align="middle" bgColor="#5c4033"><span class="style3">深褐色<BR>
+      5C4033</span></TD>
+    <TD align="middle" bgColor="#2f4f2f"><span class="style3">深绿色<BR>
+      2F4F2F</span></TD>
+    <TD align="middle" bgColor="#4a766e"><span class="style3">深铜绿色<BR>
+      4A766E</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#4f4f2f"><span class="style3">深橄榄绿<BR>
+      4F4F2F</span></TD>
+    <TD align="middle" bgColor="#9932cd"><span class="style3">紫色<BR>
+      9932CD</span></TD>
+    <TD align="middle" bgColor="#871f78"><span class="style3">深紫色<BR>
+      871F78</span></TD>
+    <TD align="middle" bgColor="#6b238e"><span class="style3">深石板蓝<BR>
+      6B238E</span></TD>
+    <TD align="middle" bgColor="#2f4f4f"><span class="style3">深石板灰<BR>
+      2F4F4F</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#97694f"><span class="style3">深黄褐色<BR>
+      97694F</span></TD>
+    <TD align="middle" bgColor="#7093db"><span class="style3">深蓝玉色<BR>
+      7093DB</span></TD>
+    <TD align="middle" bgColor="#855e42"><span class="style3">暗木色<BR>
+      855E42</span></TD>
+    <TD align="middle" bgColor="#545454"><span class="style3">暗灰<BR>
+      545454</span></TD>
+    <TD align="middle" bgColor="#856363"><span class="style3">暗玫瑰色<BR>
+      856363</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#d19275"><span class="style3">长石色<BR>
+      D19275</span></TD>
+    <TD align="middle" bgColor="#8e2323"><span class="style3">砖红色<BR>
+      8E2323</span></TD>
+    <TD align="middle" bgColor="#238e23"><span class="style3">草绿<BR>
+      238E23</span></TD>
+    <TD align="middle" bgColor="#cd7f32"><span class="style3">金色<BR>
+      CD7F32</span></TD>
+    <TD align="middle" bgColor="#dbdb70"><span class="style3">秋叶色<BR>
+      DBDB70</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#c0c0c0"><span class="style3">灰色<BR>
+      C0C0C0</span></TD>
+    <TD align="middle" bgColor="#527f76"><span class="style3">铜绿色<BR>
+      527F76</span></TD>
+    <TD align="middle" bgColor="#93db70"><span class="style3">黄绿色<BR>
+      93DB70</span></TD>
+    <TD align="middle" bgColor="#215e21"><span class="style3">军绿<BR>
+      215E21</span></TD>
+    <TD align="middle" bgColor="#4e2f2f"><span class="style3">印第安红色<BR>
+      4E2F2F</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#9f9f5f"><span class="style3">土黄<BR>
+      9F9F5F</span></TD>
+    <TD align="middle" bgColor="#c0d9d9"><span class="style3">浅蓝<BR>
+      C0D9D9</span></TD>
+    <TD align="middle" bgColor="#a8a8a8"><span class="style3">浅灰<BR>
+      A8A8A8</span></TD>
+    <TD align="middle" bgColor="#8f8fbd"><span class="style3">浅铜蓝<BR>
+      8F8FBD</span></TD>
+    <TD align="middle" bgColor="#e9c2a6"><span class="style3">浅木色<BR>
+      E9C2A6</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#32cd32"><span class="style3">浅绿<BR>
+      32CD32</span></TD>
+    <TD align="middle" bgColor="#e47833"><span class="style3">橙色<BR>
+      E47833</span></TD>
+    <TD align="middle" bgColor="#8e236b"><span class="style3">栗色<BR>
+      8E236B</span></TD>
+    <TD align="middle" bgColor="#32cd99"><span class="style3">中绿<BR>
+      32CD99</span></TD>
+    <TD align="middle" bgColor="#3232cd"><span class="style3">中蓝<BR>
+      3232CD</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#6b8e23"><span class="style3">中草绿<BR>
+      6B8E23</span></TD>
+    <TD align="middle" bgColor="#eaeaae"><span class="style3">中秋叶色<BR>
+      EAEAAE</span></TD>
+    <TD align="middle" bgColor="#9370db"><span class="style3">中紫色<BR>
+      9370DB</span></TD>
+    <TD align="middle" bgColor="#426f42"><span class="style3">中海绿<BR>
+      426F42</span></TD>
+    <TD align="middle" bgColor="#7f00ff"><span class="style3">中石板蓝<BR>
+      7F00FF</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#7fff00"><span class="style3">中春绿<BR>
+      7FFF00</span></TD>
+    <TD align="middle" bgColor="#70dbdb"><span class="style3">中蓝玉色<BR>
+      70DBDB</span></TD>
+    <TD align="middle" bgColor="#db7093"><span class="style3">中紫红色<BR>
+      DB7093</span></TD>
+    <TD align="middle" bgColor="#a68064"><span class="style3">中木色<BR>
+      A68064</span></TD>
+    <TD align="middle" bgColor="#2f2f4f"><span class="style3">夜蓝色<BR>
+      2F2F4F</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#23238e"><span class="style3">海蓝色<BR>
+      23238E</span></TD>
+    <TD align="middle" bgColor="#4d4dff"><span class="style3">氖蓝色<BR>
+      4D4DFF</span></TD>
+    <TD align="middle" bgColor="#ff6ec7"><span class="style3">氖粉红色<BR>
+      FF6EC7</span></TD>
+    <TD align="middle" bgColor="#00009c"><span class="style3">新夜蓝色<BR>
+      00009C</span></TD>
+    <TD align="middle" bgColor="#ebc79e"><span class="style3">新黄褐色<BR>
+      EBC79E</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#cfb53b"><span class="style3">暗金色<BR>
+      CFB53B</span></TD>
+    <TD align="middle" bgColor="#ff7f00"><span class="style3">橘色<BR>
+      FF7F00</span></TD>
+    <TD align="middle" bgColor="#ff2400"><span class="style3">橘红<BR>
+      FF2400</span></TD>
+    <TD align="middle" bgColor="#db70db"><span class="style3">淡紫<BR>
+      DB70DB</span></TD>
+    <TD align="middle" bgColor="#8fbc8f"><span class="style3">淡绿<BR>
+      8FBC8F</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#bc8f8f"><span class="style3">粉红<BR>
+      BC8F8F</span></TD>
+    <TD align="middle" bgColor="#eaadea"><span class="style3">棕色<BR>
+      EAADEA</span></TD>
+    <TD align="middle" bgColor="#d9d9f3"><span class="style3">石英色<BR>
+      D9D9F3</span></TD>
+    <TD align="middle" bgColor="#5959ab"><span class="style3">富兰色<BR>
+      5959AB</span></TD>
+    <TD align="middle" bgColor="#6f4242"><span class="style3">橙红色<BR>
+      6F4242</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#8c1717"><span class="style3">猩红<BR>
+      8C1717</span></TD>
+    <TD align="middle" bgColor="#238e68"><span class="style3">海绿<BR>
+      238E68</span></TD>
+    <TD align="middle" bgColor="#6b4226"><span class="style3">半甜巧克力色<BR>
+      6B4226</span></TD>
+    <TD align="middle" bgColor="#8e6b23"><span class="style3">赭色<BR>
+      8E6B23</span></TD>
+    <TD align="middle" bgColor="#e6e8fa"><span class="style3">银色<BR>
+      E6E8FA</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#3299cc"><span class="style3">天蓝<BR>
+      3299CC</span></TD>
+    <TD align="middle" bgColor="#007fff"><span class="style3">石板蓝<BR>
+      007FFF</span></TD>
+    <TD align="middle" bgColor="#ff1cae"><span class="style3">香粉红<BR>
+      FF1CAE</span></TD>
+    <TD align="middle" bgColor="#00ff7f"><span class="style3">春绿<BR>
+      00FF7F</span></TD>
+    <TD align="middle" bgColor="#236b8e"><span class="style3">钢蓝<BR>
+      236B8E</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#38b0de"><span class="style3">夏天的天空<BR>
+      38B0DE</span></TD>
+    <TD align="middle" bgColor="#db9370"><span class="style3">黄褐色<BR>
+      DB9370</span></TD>
+    <TD align="middle" bgColor="#adeaea"><span class="style3">蓝玉色<BR>
+      ADEAEA</span></TD>
+    <TD align="middle" bgColor="#5c4033"><span class="style3">暗褐色<BR>
+      5C4033</span></TD>
+    <TD align="middle" bgColor="#cdcdcd"><span class="style3">亮灰<BR>
+      CDCDCD</span></TD>
+  </TR>
+  <TR>
+    <TD align="middle" bgColor="#4f2f4f"><span class="style3">紫罗兰色<BR>
+      4F2F4F</span></TD>
+    <TD align="middle" bgColor="#cc3299"><span class="style3">紫红<BR>
+      CC3299</span></TD>
+    <TD align="middle" bgColor="#d8d8bf"><span class="style3">麦色<BR>
+      D8D8BF</span></TD>
+    <TD align="middle" bgColor="#99cc32"><span class="style3">暗黄<BR>
+      99CC32</span></TD>
+    <TD align="middle" bgColor="#eeeeee"><span class="style3">淡灰<BR>
+      EEEEEE</span></TD>
+  </TR>
+</table>
+<p>&nbsp;</p>
+<HR noShade>
+
+<TABLE cellSpacing=0 cellPadding=0 width=418 align=center border=0>
+  <TBODY>
+  <TR>
+    <TH scope=col width=418>&nbsp;</TH>
+  </TR>
+  <TR>
+    <TD height=55>
+      <P class=STYLE2 align=center><span class="style3">公式提供：巴哈姆特seatiger，網頁程式撰寫：<a href="http://s93.tku.edu.tw/~493370067/pyms/mabi/mabi_id.htm" target="_blank">mingray</a> </span></P>
+      <P class=STYLE2 align=center><span class="style3"><a href="http://Mabibook.com" target="_blank">洛奇小册子</a></span> Mabibook.com</P></TD></TR></TBODY></TABLE>
+<P class=STYLE2 align=center>&nbsp;</P>
+<SCRIPT>
+			/*色码表
+			for(var i = 0; i < 97; i++){
+				document.write(["<br/>", i, "<br/>", strRefWord[i]].join(""))
+			}
+			*/
+		</SCRIPT>
+
+<SCRIPT src="mcc/ystat.js" 
+type=text/javascript></SCRIPT>
+
+</BODY></HTML>

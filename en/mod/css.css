@@ -1,0 +1,16 @@
+a:link { text-decoration: none ; color: #336699 }
+a:visited { text-decoration: none ; color: #336699 }
+a:active { text-decoration: none }
+a:hover { text-decoration: none ; color: #CC9933 }
+body, td {font-size:10pt}
+BODY {
+SCROLLBAR-FACE-COLOR: #FFFFFF;
+ SCROLLBAR-HIGHLIGHT-COLOR: #666666;
+ SCROLLBAR-SHADOW-COLOR: #666666;
+ SCROLLBAR-3DLIGHT-COLOR: #FFFFFF;
+ SCROLLBAR-ARROW-COLOR: #666666;
+ SCROLLBAR-TRACK-COLOR: #FFFFFF;
+ SCROLLBAR-DARKSHADOW-COLOR: #FFFFFF;
+ SCROLLBAR-BASE-COLOR: #666666;
+ font-family:Verdana, Arial, Helvetica, sans-serif
+}

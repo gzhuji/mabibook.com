@@ -1,0 +1,177 @@
+<html>
+<head>
+<title></title>
+<style>
+	body{
+		font-size:9pt;
+	}
+  table{
+    border-collapse: collapse;
+  }
+
+
+input {width:20px; vertical-align:middle}
+
+.file1 {  border:1px solid #888;padding:2px 6px; display:block; float:left; background:#ddd; color:#006699; z-index:1; margin-left:8px; vertical-align:middle; cursor: pointer}
+
+</style>
+</head>
+<body>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onClick="location=location" class="file1"> Change PIC </button> &nbsp; &nbsp; &nbsp;
+<button id="start" class="file1"> START </button>
+<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="lines" value='3' maxlength="1"/> Columns <input type="text" id="cols" value='3' maxlength="1"/> Row  <br><br>
+<table><tr><td> &nbsp;&nbsp;&nbsp;<script language=JavaScript src="/Scripts/show2.js"></script>&nbsp;&nbsp;&nbsp;</td>
+  <td>
+  <table id="board" border=1 cellspacing=0 cellpadding=0>
+		<tr><td></td><td></td><td></td></tr>
+		<tr><td></td><td></td><td></td></tr>
+  </table></td></tr></table>
+</body>
+</html>
+<script>
+
+try{
+     document.execCommand("BackgroundImageCache", false, true);
+}catch(e){alert(e)};
+	//輔助函數
+	function $(id){return document.getElementById(id)};
+
+	var PicGame = {
+			//行數
+			x: 3,
+			//列數
+			y: 3,
+			//圖片源
+			img: $('img'),
+			//單元格高度
+			cellHeight: 0,
+			//單元格寬度
+			cellWidth: 0,
+			//本遊戲最主要的對象：表格，每個td對應著一個可以移動的小格子
+			board: $('board'),
+			//初始函數
+			init: function(){
+						//確定拼圖遊戲的行數和列數
+						this.x = $('lines').value>1?$('lines').value : 3;
+						this.y = $('cols').value>1?$('cols').value : 3;
+						//刪除board原有的行
+						while(this.board.rows.length>0){
+								this.board.deleteRow(0);
+						}
+						//按照行數和列數重新構造board
+						for(var i=0; i<this.x; i++){
+								var tr = this.board.insertRow(-1);
+								for(var j=0; j<this.y; j++){
+										var td=tr.insertCell(-1);
+								}
+						}
+						//計算單元格高度和寬度
+						this.cellHeight = this.img.height/this.x;
+						this.cellWidth = this.img.width/this.y;
+						//獲取所有的td
+						var tds = this.board.getElementsByTagName('td');
+						//對每個td， 設置樣式
+					  for(var i=0; i<tds.length-1; i++){
+							    tds[i].style.width = this.cellWidth;
+							    tds[i].style.height = this.cellHeight;
+							    tds[i].style.background = "url(" + this.img.src + ")";
+							    tds[i].style.border = "solid #ccc 1px";
+							    var currLine = parseInt(i/this.y);
+							    var currCol = i%this.y;
+							    //這裡最重要，計算每個單元格的背景圖的位置，使他們看起來像一幅圖像
+							    tds[i].style.backgroundPositionX = -this.cellWidth * currCol;
+							    tds[i].style.backgroundPositionY = -this.cellHeight * currLine;
+					  }
+					  /** begin: 打亂排序*******************/
+					  /**
+					  *	打亂排序的算法是這樣的：比如我當前是3*3佈局，
+					  * 則我為每一個td產生一個目標位置，這些目標位置小於9且各不相同，
+					  * 然後把它們替換到那個地方。
+					  **/
+					  
+					  //目標位置序列
+					  var index = [];
+					  index[0] = Math.floor(Math.random()*(this.x*this.y));
+					  while(index.length<(this.x*this.y)){
+					    var num = Math.floor(Math.random()*(this.x*this.y));
+					    for(var i=0; i<index.length; i++){
+					      if(index[i]==num){
+					        break;
+					      }
+					    }
+					    if(i==index.length){
+					      index[index.length] = num;
+					    }
+					    //window.status = index;
+					  }
+					  var cloneTds = [];
+					  //把每個td克隆， 然後依據目標位置序列index，替換到目標位置
+					  for(var i=0; i<tds.length; i++){
+					    cloneTds.push(tds[i].cloneNode(true));
+					  }
+					  for(var i=0; i<index.length; i++){
+					    tds[i].parentNode.replaceChild(cloneTds[index[i]],tds[i]);
+					  }
+					  /** end: 打亂排序*********************/
+					  
+					  //為每個td添加onclick事件。
+					  tds = this.board.getElementsByTagName('td');
+					  for(var i=0; i<tds.length; i++){
+						    	tds[i].onclick = function(){
+						    	//被點擊對象的坐標
+						      var row = this.parentNode.rowIndex;
+						      var col = this.cellIndex;
+						      //window.status = "row:" + row + " col:" + col;
+						      //空白方塊的坐標
+						      var rowBlank = 0;
+						      var colBlank = 0;
+						      //reachable表示當前被點擊的方塊是否可移動
+						      var reachable = false;
+						      if(row+1<PicGame.x && PicGame.board.rows[row+1].cells[col].style.background == ''){
+						        rowBlank = row + 1;
+						        colBlank = col;
+						        reachable = true;
+						        //window.status +=" reachable! rowBlank: " + rowBlank + " colBlank:" + colBlank;
+						      }
+						      else if(row-1>=0 && PicGame.board.rows[row-1].cells[col].style.background == ''){
+						        rowBlank = row - 1;
+						        colBlank = col;
+						        reachable = true;
+						        //window.status +=" reachable! rowBlank: " + rowBlank + " colBlank:" + colBlank;
+						      }
+						      else if(col+1<PicGame.y && PicGame.board.rows[row].cells[col+1].style.background == ''){
+						        rowBlank = row;
+						        colBlank = col + 1;
+						        reachable = true;
+						        //window.status +=" reachable! rowBlank: " + rowBlank + " colBlank:" + colBlank;
+						      }
+						      else if(col-1>=0 && PicGame.board.rows[row].cells[col-1].style.background == ''){
+						        rowBlank = row;
+						        colBlank = col - 1;
+						        reachable = true;
+						        //window.status +=" reachable! rowBlank: " + rowBlank + " colBlank:" + colBlank;
+						      }
+						      else{
+						        //window.status +=" unreachable!";
+						        reachable = false;
+						      }
+						      //如果可移動，則把當前方塊和空白方塊交換
+						      if(reachable){
+						        var tmpBlankNode = PicGame.board.rows[rowBlank].cells[colBlank].cloneNode(true);
+						        //需要注意的是克隆對像丟失了onclick方法，所以要補上
+						        tmpBlankNode.onclick = arguments.callee;
+						        var tmpCurrNode = PicGame.board.rows[row].cells[col].cloneNode(true);
+						        tmpCurrNode.onclick = arguments.callee;
+						        PicGame.board.rows[rowBlank].cells[colBlank].parentNode.replaceChild(tmpCurrNode,PicGame.board.rows[rowBlank].cells[colBlank]);
+						        PicGame.board.rows[row].cells[col].parentNode.replaceChild(tmpBlankNode, PicGame.board.rows[row].cells[col]);
+						      }
+						    }
+					  }
+			}
+	};
+  PicGame.init();
+  $('start').onclick = function(){
+  		PicGame.init();
+  }
+</script>

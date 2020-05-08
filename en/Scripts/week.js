@@ -1,0 +1,17 @@
+﻿today = new Date();
+if(today.getDay()==0) day = "Sunday,&nbsp; Cri higer";
+if(today.getDay()==1) day = "Monday,&nbsp; Easy to produce";
+if(today.getDay()==2) day = "Tuesday,&nbsp; Good for fight in Dungeons";
+if(today.getDay()==3) day = "Wednesday,&nbsp;";
+if(today.getDay()==4) day = "Thursday,&nbsp; Good for enchant";
+if(today.getDay()==5) day = "Friday,&nbsp; Good for use medicine";
+if(today.getDay()==6) day = "Saterday,&nbsp; One more year old";
+document.write(day);﻿today = new Date();
+if(today.getDay()==0) day = "Sunday,&nbsp; Cri higer";
+if(today.getDay()==1) day = "Monday,&nbsp; Easy to produce";
+if(today.getDay()==2) day = "Tuesday,&nbsp; Good for fight in Dungeons";
+if(today.getDay()==3) day = "Wednesday,&nbsp;";
+if(today.getDay()==4) day = "Thursday,&nbsp; Good for enchant";
+if(today.getDay()==5) day = "Friday,&nbsp; Good for use medicine";
+if(today.getDay()==6) day = "Saterday,&nbsp; One more year old";
+document.write(day);

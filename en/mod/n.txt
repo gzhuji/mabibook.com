@@ -1,0 +1,6 @@
+<div style="background-color: #eeeeee;padding-bottom:5px;"><br>
+<p style="font-size:14px;color:666;">&nbsp;</font><b> 洛奇天气预报</b></p>
+      <p style="font-size:12px;;color:666;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 洛奇天气预报是由巴哈姆特台服玩家制作~ 可提供游戏内未来三十天的天气预报, 比CCTV还准确喔</p>
+</div>
+
+<script type="text/javascript" src="menu.js"></script>

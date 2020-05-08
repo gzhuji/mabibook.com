@@ -1,0 +1,576 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<TITLE>洛奇小册子</TITLE>
+<META content="洛奇小册子主要搜集洛奇(Mabinogi)相关的网站和信息" name=description>
+<META content="洛奇,mabinogi,洛奇小册子" name=keywords>
+<style>
+	BODY {
+	FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+TD {
+	FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+TH {
+	FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+A:link {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+A {
+	FONT-WEIGHT: bold
+}
+.style1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px
+}
+.style4 {font-size: 12px}
+.style5 {color: #FF0000}
+.style6 {font-size: 12px; color: #FF0000; }
+
+BODY {
+	FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+TD {
+	FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+TH {
+	FONT-SIZE: 10px; COLOR: #999999; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+A:link {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+A {
+	FONT-WEIGHT: bold
+}
+.style1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px
+}
+.style4 {font-size: 12px}
+.style5 {color: #FF0000}
+.style6 {font-size: 12px; color: #FF0000; }
+	</style>
+
+
+<SCRIPT language=JavaScript type=text/JavaScript>
+<!--
+
+//时间校正
+Now = new Date();
+ServerTime = 18 * 360 + 37 * 60 + 23;
+ClientTime = (Now.getHours()+Math.floor(Now.getTimezoneOffset()/60)+8)*360 + (Now.getMinutes()+Math.floor(Now.getTimezoneOffset()%60))*60 + Now.getSeconds();
+DifferenceTime = (ServerTime-ClientTime)*1000;
+if (DifferenceTime >= 82800) {DifferenceTime -= 86400;}
+if (DifferenceTime <=-82800) {DifferenceTime += 86400;}
+MabiServerTime = -64 * 1500;	
+DifferenceTime += MabiServerTime;
+DifferenceTime = 0;
+
+
+
+
+//设定颜色
+var color1 = "#336699";		/*城镇*/
+var color2 = "#336699";		/*原野*/
+var color3 = "#336699";		/*地下城*/
+var color4 = "#336699";		/*商人城镇地图*/
+var color5 = "#336699";		/*商人原野地图*/
+
+var Moongate = new Array(24);
+
+Moongate[0] = "迪尔科内尔".fontcolor(color2);
+Moongate[1] = "塔汀".fontcolor(color3);
+Moongate[2] = "艾明马恰".fontcolor(color1);
+Moongate[3] = "塔拉".fontcolor(color1);
+Moongate[4] = "敦巴伦".fontcolor(color1);
+Moongate[5] = "凯安港口".fontcolor(color1);
+Moongate[6] = "班格".fontcolor(color1);
+Moongate[7] = "艾明马恰".fontcolor(color3);
+Moongate[8] = "塔拉".fontcolor(color1);
+Moongate[9] = "迪尔科内尔".fontcolor(color1);
+Moongate[10] = "塔汀".fontcolor(color2);
+Moongate[11] = "凯欧岛".fontcolor(color3);
+Moongate[12] = "艾明马恰".fontcolor(color3);
+Moongate[13] = "塔拉".fontcolor(color2);
+Moongate[14] = "班格".fontcolor(color2);
+Moongate[15] = "敦巴伦".fontcolor(color1);
+Moongate[16] = "凯安港口".fontcolor(color1);
+Moongate[17] = "塔拉".fontcolor(color3);
+Moongate[18] = "塔丁".fontcolor(color3);
+Moongate[19] = "迪尔科内尔".fontcolor(color3);
+Moongate[20] = "敦巴伦".fontcolor(color3);
+Moongate[21] = "班格".fontcolor(color3);
+Moongate[22] = "塔拉".fontcolor(color1);
+Moongate[23] = "凯欧岛".fontcolor(color1);
+
+//设定流浪商人顺序
+var Business = new Array(14);
+Business[0] = "艾明马恰 下方的小岛".fontcolor(color4);
+Business[1] = "仙魔平原 三叉路西边小屋".fontcolor(color5);
+Business[2] = "盖尔茨龙之遗迹 东边小屋".fontcolor(color5);
+Business[3] = "班格 巴里地下城入口旁".fontcolor(color4);
+Business[4] = "敦巴伦 武器店上方".fontcolor(color4);
+Business[5] = "杜加德走廊 伐木场小屋".fontcolor(color5);
+Business[6] = "迪尔科内尔 旅馆东南方".fontcolor(color4);
+Business[7] = "杜加德走廊 伐木场小屋".fontcolor(color5);
+Business[8] = "敦巴伦 东边田地中".fontcolor(color4);
+Business[9] = "盖尔茨龙遗迹 东边小屋".fontcolor(color5);
+Business[10] = "班格 酒店".fontcolor(color4);
+Business[11] = "仙魔平原 三叉路西边小屋".fontcolor(color5);
+Business[12] = "艾明马恰 武器店西边小巷".fontcolor(color4);
+Business[13] = "凯欧岛　星月门西方".fontcolor(color5);
+
+//露雅上班时间
+var Rua = "0010010110111000000010100100010001001000100";
+
+
+
+function NowWatch() {
+	//取得使用者系统时间
+	var Now = new Date();
+	//取得台北时间(+8)
+	var TaipeiTime = Now.getTime();
+	//爱尔琳时间校正(Day+14 Hour-16)
+	var ErinnTime = TaipeiTime + (8*60*60*1000) + DifferenceTime;
+	//取得爱尔琳时间
+	var ErinnSeason = Math.floor((ErinnTime % (7*40*24*60*1.5*1000) / (40*24*60*1.5*1000)) + 4) % 7;
+	var ErinnDay = Math.floor(ErinnTime % (40*24*60*1.5*1000) / (24*60*1.5*1000)) + 1;
+	var ErinnHour = Math.floor((ErinnTime % (24*60*1.5*1000)) / (60*1.5*1000));
+	var ErinnMinute = Math.floor((ErinnTime % (60*1.5*1000)) / (1.5*1000));
+	if ( ErinnSeason == 0 )   {ErinnSeason = "";}
+	if ( ErinnSeason == 1 )   {ErinnSeason = "";}
+	if ( ErinnSeason == 2 )   {ErinnSeason = "<br><br>&nbsp;明天维护，请提前捡起仍地上的装备以免消失= v =";}
+	if ( ErinnSeason == 3 )   {ErinnSeason = "";}
+	if ( ErinnSeason == 4 )   {ErinnSeason = "";}
+	if ( ErinnSeason == 5 )   {ErinnSeason = "";}
+	if ( ErinnSeason == 6 )   {ErinnSeason = "";}
+	if ( ErinnHour < 10 )   {ErinnHour = "0" + ErinnHour;}
+	if ( ErinnMinute < 10 ) {ErinnMinute = "0" + ErinnMinute;}
+	//取得艾维卡时间
+	var MoonTime = ErinnTime + (90000 * 6);
+	var MoonDay = Math.floor(MoonTime % (Moongate.length*24*60*1.5*1000) / (24*60*1.5*1000));
+	var MoonHour = Math.floor((MoonTime % (24*60*1.5*1000)) / (60*1.5*1000));
+	var MoonMinute = Math.floor((MoonTime % (60*1.5*1000)) / (1.5*1000));
+	//取得露雅时间
+	var RuaDay = Math.floor(MoonTime % (43*24*60*1.5*1000) / (24*60*1.5*1000));
+	//取得流浪商人时间
+	var BunsDay = Math.floor(ErinnTime % (14*24*60*1.5*1000) / (24*60*1.5*1000));
+
+	//基本显示格式
+	NormalPrint = "现在洛奇时间 <font color=ff0000>" + ErinnHour + ":" + ErinnMinute + "</font>&nbsp;&nbsp;"
+	
+	//输出资料
+	 {
+		if ( MoonHour * 60 + MoonMinute <= 720 )   {}
+			
+			
+		else   {}
+			  {
+		NormalPrint = (NormalPrint + "<br><br>&nbsp;流浪商人在 " + Business[BunsDay]);}
+	}
+	
+	{
+		if ( MoonHour * 60 + MoonMinute <= 720 )   {
+			NormalPrint = (NormalPrint + "&nbsp;&nbsp;&nbsp;茹娅正在" + (Test(Rua.substr(RuaDay%43,1))?"上班".fontcolor("#66CCFF"):"休息".fontcolor("CCCCCC")) + "　明天" + (Test(Rua.substr((RuaDay%43)+1,1))?"上班".fontcolor("#66CCFF"):"休息".fontcolor("CCCCCC"))+ErinnSeason);}
+		else   {
+			NormalPrint = (NormalPrint + "&nbsp;&nbsp;&nbsp;茹娅即将" + (Test(Rua.substr((RuaDay%43)+1,1))?"上班".fontcolor("#66CCFF"):"休息".fontcolor("CCCCCC")) + "　明天" + (Test(Rua.substr((RuaDay%43)+2,1))?"上班".fontcolor("#66CCFF"):"休息".fontcolor("CCCCCC"))+ErinnSeason );}
+	}
+	
+	
+	document.getElementById('mgbclock').innerHTML = NormalPrint;
+
+
+
+	setTimeout("NowWatch()",250);
+}
+
+
+
+function Test(Num){
+	if (Num==1)   {
+		return true;}
+	else  {
+		return false;}
+}
+
+//-->
+</SCRIPT>
+	</head>
+<BODY leftMargin=0 topMargin=0 marginheight="0" marginwidth="0" onload=NowWatch()>
+<DIV align=center>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV align=center>
+<!--      <P class="style4" align="center"><br>
+        <a href="http://luoqi.tiancity.com/event/goddessback/" class="style4" target="_blank">永远的爱琳，新女神降临回顾</a></P>
+-->
+        <TABLE cellSpacing=0 cellPadding=5 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD style="BORDER-RIGHT: #ddd 1px solid" vAlign=top align=right width="50%">
+          <TABLE cellSpacing=0 cellPadding=5 width="375" border=0>
+            <TBODY>
+              <TR>
+                <TD vAlign=top align=left colSpan=2 style="padding-top:10px;">
+                    <div align="center">
+                      <script language=JavaScript src="Scripts/show.js"></script>
+                      &nbsp;<BR>
+                      <BR>
+
+ 	                     <table width="260" border="0">
+                           <tr>
+                             <td height="56" colspan="3"><p><a href="http://v.youku.com/v_show/id_XMTg3MDgyMDE2.html" target="_blank" class="style4"><img src="devcat.gif" width="22" height="22" border="0"> 合理安排时间 健康规律生活~</a></p>                               </td>
+                             </tr>
+                           <tr>
+                             <td width="9">&nbsp;</td>
+                             <td width="132"><a href="/" class="style4">Mabibook.com</a><br>
+							 <a href="/w" class="style4">Mabibook.com/w</a><br>
+                               <a href="/tw" class="style4">Mabibook.com/tw</a><br>
+                               <a href="/en" class="style4">Mabibook.com/en</a><br></td>
+                             <td width="130"><a href="/" class="style4">洛奇小册子</a><br>
+							 <a href="/w" class="style4">洛奇小册子手机版</a><br>
+                               <a href="/tw" class="style4">瑪奇小冊子</a><br>
+                               <a href="/en" class="style4">Mabibook </a><br></td>
+                           </tr>
+                         </table>
+ 	                    <br>
+ 
+                         <BR>
+                        <link rel="stylesheet" type="text/css" media="all" href="images/offical.css"/>
+<script type="text/javascript"
+src="Scripts\jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+$("ul#topnav li").hover(function() { //Hover over event on list item
+	$(this).css({ 'background' : '#1376c9 url(images\topnav_active.gif) repeat-x'}); //Add background color + image on hovered list item
+	$(this).find("span").show(); //Show the subnav
+} , function() { //on hover out...
+	$(this).css({ 'background' : 'none'}); //Ditch the background
+	$(this).find("span").hide(); //Hide the subnav
+});
+	
+});
+</script>
+
+
+
+
+<div class="container">	
+	
+<ul id="topnav">
+        <li><a href="http://www.luoqi.com.cn/" target=_blank><strong>洛奇</strong></a>
+        <span>
+                <a href="http://luoqi.tiancity.com/homepage/article/Class_255_Time_1.html" target=_blank>官方新闻</a>
+                <a href="http://www.luoqi.com.cn/homepage/event/calendar.html" target=_blank>最新活动</a>
+                
+                
+                <a href="http://luoqi.tiancity.com/homepage/download/game.html" target=_blank>游戏下载</a>
+				<a href="http://luoqi.tiancity.com/homepage/sitemap.html" target=_blank>官网地图</a>
+                <br><br>
+                <a href="http://luoqi.tiancity.com/homepage/newplayer/" target=_blank>新手上路</a>
+                <a href="http://bbs.tiancity.com/Forum/showforum.aspx?gid=1001&forumid=10" target=_blank>新手专区</a>
+                <a href="http://luoqi.tiancity.com/homepage/information/index.html" target=_blank>官方攻略</a>
+                <a href="http://event.luoqi.com.cn/rank/stars.aspx" target=_blank>星光大道</a>
+                <br><br>
+                <a href="http://ask.tiancity.com/" target=_blank>洛奇问吧</a>
+				<a href="http://bbs.tiancity.com/Forum/showforum.aspx?gid=1001&forumid=7" target=_blank>洛奇论坛</a>
+                <a href="http://www.luoqi.com.cn/homepage/article/Class_12_Time_1.html" target=_blank>文章投稿</a>
+                <a href="http://bbs.tiancity.com/pictureForum/showforum.aspx?gid=1001&forumid=13" target=_blank>玩家风采</a>
+                <br><br>
+                <a href="http://bbs.tiancity.com/pictureForum/showforum.aspx?gid=1001&forumid=14" target=_blank>游戏截图</a>
+                <a href="http://bbs.tiancity.com/pictureForum/showforum.aspx?gid=1001&forumid=15" target=_blank>洛奇同人</a>
+                <a href="http://luoqi.tiancity.com/homepage/download/video.html" target=_blank>洛奇动画</a>
+				<a href="http://luoqi.tiancity.com/homepage/sitemap.html" target=_blank>官网地图</a>
+
+              </span></li>
+                
+        <li>
+            <a href="http://tw.mabinogi.gamania.com/main1.aspx" target=_blank><strong>瑪奇</strong></a>
+            <span>
+                <a href="http://tw.mabinogi.gamania.com/4_download.aspx" target=_blank>程式下載</a>
+                <a href="http://tw.mabinogi.gamania.com/Net2.0/Bulletins/BulletinCList.aspx?kind=0&toALL=1" target=_blank>遊戲公告</a>
+                <a href="http://tw.mabinogi.gamania.com/Net2.0/Community/ForumSubList.aspx?FID=1" target=_blank>遊戲討論</a>
+                <a href="http://tw.mabinogi.gamania.com/Net2.0/Community/ForumSubList.aspx?FID=2" target=_blank>遊戲閒聊</a>
+                <br><br>
+                <a href="http://tw.mabinogi.gamania.com/Net2.0/Community/ForumSubList.aspx?FID=3" target=_blank>交易看板</a>
+                <a href="http://tw.mabinogi.gamania.com/6_shop_character.aspx?locate=6_shop_c.aspx" target=_blank>購物商店</a>
+                <a href="https://tw.gamashoponline.gamania.com/index.html" target=_blank>紅利商店</a>
+                <a href="http://www.gamania.com.hk/hk/mabinogi/hkzone.asp" target=_blank>香港專區</a>
+                
+                </span>        </li>
+        <li>
+            <a href="http://www.mabinogi.jp/" target="_blank"><strong>マビノギ</strong></a>
+            <span>
+                
+                <a href="http://www.mabinogi.jp/6th/entry/gameDownloadStreamport.asp" target=_blank>程式下載</a>
+                <a href="http://www.mabinogi.jp/6th/notice/noticeBoardList.asp" target=_blank>遊戲公告</a>
+                <a href="http://www.mabinogi.jp/6th/shop/shop.asp" target=_blank>遊戲商店</a>
+                <a href="http://avatar.mabinogi.jp/live/live2.asp" target=_blank>遊戲直播</a>
+                <br><br>
+                <a href="http://www.mabinogi.jp/6th/community/ssBoardList.asp?sv=re" target=_blank>遊戲截圖</a>
+                <a href="http://www.mabinogi.jp/6th/community/fanartBoardList.asp?sv=re" target=_blank>遊戲同人</a>
+                <a href="http://www.mabinogi.jp/6th/community/fansiteList.asp" target=_blank>友站鏈接</a>
+                <a href="http://www.mabinogi.jp/6th/community/knowledgeTop.asp" target=_blank>知識王</a>
+                </span></li>
+        <li>
+            <a href="http://www.mabinogi.com/"> <strong>마비노기</strong></a>
+            <span>
+                
+                <a href="http://www.mabinogi.com/C3/Pds/Download.asp" target=_blank>程式下載</a>
+                <a href="http://www.mabinogi.com/C3/News/Notice.asp" target=_blank>遊戲公告</a>
+                <a href="http://www.mabinogi.com/C3/Shop/ShopMain.asp" target=_blank>遊戲商店</a>
+                <a href="http://www.mabinogi.com/C3/etc/update/" target=_blank>版本更新</a>
+                <br><br>
+                <a href="http://www.mabinogi.com/C3/Community/ScreenshotMain.asp" target=_blank>遊戲截圖</a>
+                <a href="http://www.mabinogi.com/C3/Community/FanArtMain.asp" target=_blank>遊戲同人</a>
+                <a href="http://www.mabinogi.com/C3/ew/" target=_blank>愛琳雜誌</a>
+                <a href="http://www.mabinogi.com/c3/intro/museum/" target=_blank>博物館</a>
+                <br><br>
+                <a href="http://avatar.mabinogi.com/live/c3live/live2.asp" target=_blank>遊戲直播</a>
+                <a href="http://www.mabinogi.com/C3/Board/UserBBS.asp" target=_blank>遊戲論壇</a>
+                <a href="http://www.mabinogi.com/C3/Community/Creator/" target=_blank>創作評選</a>
+                <a href="http://www.mabinogi.com/C3/Community/Knowledge.asp" target=_blank>知識王</a>
+                </span>        </li>
+<li><a href="http://mabinogi.nexon.net" target=_blank><strong>Mabinogi</strong></a>
+            <span>
+                <a href="http://mabinogi.nexon.net" target=_blank>Mabinogi US</a> |
+                <a href="http://mabinogi.nexoneu.com" target=_blank>Mabinogi Europe</a> |
+                <a href="http://mabinogi.nexon.net/Notice/List.aspx?boardNo=101&pageIndex=1" target=_blank>News</a> |
+                <a href="http://forum.nexon.net/Mabinogi/forums/default.aspx?GroupID=19" target=_blank>Forum</a> |
+                <a href="http://mabinogi.nexon.net/Downloads/Client.aspx" target=_blank>Clint Download</a> <br /><br />
+                <a href="http://mabinogi.nexon.net/Shop/Shop.aspx" target=_blank>Shop</a> |
+                <a href="http://mabinogi.nexon.net/Guide/Intro.aspx" target=_blank>Guide</a>&nbsp;&nbsp; |
+                <a href="http://mabinogi.nexon.net/Support/FAQList.aspx?boardNo=410&pageIndex=1" target=_blank>Support</a> 
+            </span> 
+
+</li>
+  </ul>
+	
+
+</div>
+
+
+
+<br>
+
+<iframe width="100%" height="470" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?width=0&height=470&fansRow=1&ptype=1&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1785757280&verifier=efc8c820"></iframe>
+
+<br><br>
+<table width="250" border="0">
+<tr><td class="style4"></td></tr></table>
+<br><span  class="style4">
+
+                      </span>
+                    </div>
+                    <!--SpamDrain information--></TD>
+              </TR>
+            </TBODY>
+          </TABLE><br><br></TD>
+          <TD vAlign=top align=left width="59%">
+          <TABLE width="100%" border=0 align="center" cellPadding=5 cellSpacing=0>
+              <TBODY>
+              <TR>
+                <TD vAlign=top align=left colSpan=2 style="padding-top:0px;">
+<DIV style="BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 15px; BORDER-LEFT: #ddd 1px solid; WIDTH: 100%; PADDING-TOP: 15px; BORDER-BOTTOM: #ddd 1px solid; BACKGROUND-COLOR: #fff;line-height:13px;">
+<P class="style1">&nbsp;欢迎访问<a href="http://mabibook.com/">洛奇小册子</a> <a href="http://mabibook.com/w" target="_blank" class="style1">手机版</a><br>
+  <br>&nbsp;今天是&nbsp;<script language=JavaScript src="Scripts/week.js"></script>
+<br><br>&nbsp;<SPAN id=mgbclock class="style1"></SPAN><br><br>
+&nbsp;普莱达 9/15/19点，骑士战18:30/21:30，拍卖21:00<br><br></P>
+</DIV>
+                <BR>
+ <link rel="stylesheet" type="text/css" media="all" href="images/main.css"/>
+<DIV style="BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #ddd 1px solid; WIDTH: 100%; PADDING-TOP: 10px; BORDER-BOTTOM: #ddd 1px solid; BACKGROUND-COLOR: #fff">
+                  <p class="style1">               
+ &nbsp;0. <a href="http://luoqi.tiancity.com/event/newguide/" target="_blank">洛奇新手教程</a> <a href="http://ezine.yydzh.com/" target="_blank">梦想生活记录</a> <a href="http://luoqi.tiancity.com/homepage/download/video.html" target="_blank">视频集锦</a> <a href="http://luoqi.tiancity.com/homepage/download/Class_300_Time_1.html" target="_blank">客户端下载</a>
+<br> &nbsp;1. <a href="http://luoqi.tiancity.com/homepage/article/Class_255_Time_1.html" target="_blank">官网消息</a> <a href="http://t.sina.com.cn/1960423540" target="_blank">新浪微博</a> <a href="http://t.qq.com/cluoqi" target="_blank">QQ微博</a> <a href="http://luoqi.tiancity.com/homepage/article/Class_232_Time_1.html" target="_blank">活动</a> <a href="http://news.baidu.com/ns?cl=2&rn=20&tn=news&word=%C2%E5%C6%E6" target="_blank">百度</a>  <a href="http://mabinogi.fws.tw/index.php" target="_blank">奇幻</a>  <a href="http://forum.gamer.com.tw/A.php?bsn=07422" target="_blank">巴哈</a> <a href="http://tieba.baidu.com/f?kw=%C2%E5%C6%E6" target="_blank">贴吧</a>
+                 
+  </p>
+                  </DIV>
+                <br>
+
+
+
+                  <!--SpamDrain information-->
+
+<style type="text/css">
+<!--
+.STYLE7 {color: #9C9A9C}
+.STYLE8 {
+	color: #FF0000;
+	font-size: 10px;
+}
+-->
+</style>
+<DIV style="BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #ddd 1px solid; WIDTH: 100%; PADDING-TOP: 10px; BORDER-BOTTOM: #ddd 1px solid; BACKGROUND-COLOR: #fff">
+
+
+                    <table width="95%" border="0">
+                      <tr>
+                        <td width="33%">&nbsp;</td>
+                        <td width="33%"><span class="style1"></span></td>
+                        <td width="33%" class="style1"><a href="http://event.luoqi.com.cn/rank/" target="_blank" class="style4"></a></td>
+                      </tr>
+                      
+                      <tr>
+                        <td><span class="style1"><a href="http://www.yydzh.com/thread.php?fid=26" target="_blank"><font color="ff0000">YY 洛奇讨论</font></a>&nbsp; </span></td>
+                        <td><a href="http://mabi.thelongnight.net
+" target="_blank" class="style4">洛奇百科</a></td>
+                        <td><a href="http://event.luoqi.com.cn/rank/" target="_blank" class="style4">洛奇官方玩家排行</a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="http://www.yydzh.com/thread.php?fid=10" target="_blank" class="style4">YY 洛奇乐谱屋</a></td>
+                        <td><span class="style4"><a href="http://mabinogi.fws.tw/weather.php" target="_blank">洛奇天气预报</a></span></td>
+                        <td><span class="style1"></span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="style4"><a href="http://www.yydzh.com/index.php?cateid=15" target="_blank">YY 洛奇各服分区</a></span></td>
+                        <td class="style1"><a href="/tu" class="style1"><font color=666666>洛奇涂鸦分享</font></a>(<a href="http://mabibook.com/bbs/viewthread.php?tid=586" target="_blank">教程</a>)</td>
+                        <td><span class="style1"><a href="/mod/">洛奇武器装备改造</a></span></td>
+                      </tr>
+                      <tr>
+                        <td><p class="style4"><a href="http://service.tiancity.com/GameBlock/LuoqiBlockList.aspx" target="_blank">洛奇违规和封停名单</a></p>                          </td>
+                        <td><span class="style1"><a href="http://mabinogi.fws.tw/skills.php" target="_blank" class="style4">洛奇技能资料</a></span></td>
+                        <td class="style1"><a href="/mod/ena.php" class="STYLE7">洛奇释放赋予资料</a></td>
+                      </tr>
+                      <tr>
+                        <td><span class="style1"><a href="http://bbs.tiancity.com/Forum/showforum.aspx?gid=1001&forumid=9" target="_blank"><font color=ff0000>在线举报</font></a></span></td>
+                        <td></td>
+                        <td><a href="http://mabinogi.fws.tw/items.php?map=12&amp;mid=61&amp;view=0" target="_blank" class="style4">洛奇打铁样本资料</a></td>
+                      </tr>
+                      <tr>
+                        <td class="style1"><a href="/mod/name.php">洛奇名字颜色模拟器</a></td>
+                        <td><a href="/mod/title.php" class="style4">洛奇称号资料</a></td>
+                        <td><a href="http://mabinogi.fws.tw/items.php?map=12&amp;mid=60&amp;view=0" target="_blank" class="style4">洛奇衣服样本资料</a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="http://mabinogi.fws.tw/ac_comproser.php" target="_blank" class="style4">洛奇奇幻世界乐谱屋</a></td>
+                        <td><span class="style1"><a href="http://mabibook.com/bbs/viewthread.php?tid=158" target="_blank" class="style1">洛奇合成资料</a></span></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td><a href="http://labo.erinn.biz/cs/index.php?action=changeFramework&framework=0" target="_blank" class="style1">洛奇纸娃娃在线模拟</a></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><a href="/mod/str.php" target="_blank" class="style4">洛奇怪物战斗力计算</a><span class="STYLE8">new</span></td>
+                        <td><a href="http://mabibook.com/bbs/forum.php?mod=viewthread&tid=3397" target="_blank" class="style4">洛奇npc信息</a></td>
+                        <td><a href="/mod/forgod.php" target="_blank" class="style4">教堂土豪捐款计算</a></td>
+                      </tr>
+                    </table>
+</DIV>
+<br>
+   <br>                 
+<DIV style="BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #ddd 1px solid; WIDTH: 100%; PADDING-TOP: 10px; BORDER-BOTTOM: #ddd 1px solid; BACKGROUND-COLOR: #fff">
+                      <P class="style1">&nbsp;洛奇游戏</P>
+                      <table width="95%" border="0">
+                      <tr>
+                        <td width="33%" class="style1"><span class="style6"><a href="http://mabibook.com/mod/rand.php">洛奇摸蛋开箱模拟</a><a href="http://luoqi.tiancity.com/homepage/information/index.html" target="_blank"></a></span></td>
+                        <td width="33%"><a href="http://nxcache.nexon.net/mabinogi/spot/game_a/game.html" target="_blank" class="style1">洛奇大家来找茬</a></td>
+                        <td width="33%" class="style1"><a href="http://mabibook.com/mod/pin.php" target="_blank">洛奇拼图游戏</a></td>
+                      </tr>
+                      
+                      <tr>
+<td width="33%" class="style1"><a href="http://www.linasixp.com/mabinogi/production.htm" target="_blank"></a></td>
+                        <td width="33%" class="style1"><a href="http://nxcache.nexon.net/mabinogi/spot/game_b/game.html" target="_blank">洛奇大家来找茬2</a></td>
+                        <td><span class="style1"><a href="http://flash.17173.com/huodong/200905/lqpt.shtml" target="_blank">洛奇御姐拼图</a></span></td>
+                      </tr>
+                      <tr>
+                        <td class="style1"><a href="http://mabibook.com/swf/moon.swf" target="_blank">洛奇星月门下载</a></td>
+                        <td width="33%" class="style1"><a href="http://mabibook.com/llk.html" target="_blank" class="style1">洛奇连连看美食篇</a></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </table>
+</DIV>
+
+<br>
+
+<DIV style="BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #ddd 1px solid; WIDTH: 100%; PADDING-TOP: 10px; BORDER-BOTTOM: #ddd 1px solid; BACKGROUND-COLOR: #fff">
+  <table width="95%" border="0">
+                      <tr>
+                        <td width="33%"><span class="style1"><a href="http://forum.gamer.com.tw/A.php?bsn=07422" target="_blank"><font color=ff0000>Mabinogi巴哈姆特</font></a></span></td>
+                        <td width="33%"><span class="style4"><strong><a href="http://mabicat.dousetsu.com" target="_blank" class="style1"><span class="style4">猫窝</span></a></strong></span></td>
+                        <td width="33%"><span class="style4"><a href="http://tieba.baidu.com/f?kw=%C2%E5%C6%E6" target="_blank">洛奇百度贴吧</a></span></td>
+                        </tr>
+                      <tr>
+                        <td width="33%"><a href="http://mabinogi.fws.tw/index.php" target="_blank" class="style4">Mabinogi奇幻世界</a></td>
+                        <td width="33%"><a href="http://mabinogi.17173.com/" target="_blank" class="style1">洛奇17173</a></td>
+                        <td class="style1"><a href="http://pinyin.sogou.com/dict/list.php?c=514" target="_blank">洛奇搜狗词库</a></td>
+    </tr>
+                                           <tr>
+                        <td width="33%"><a href="http://mabinogi.gameabout.com/" target="_blank" class="style4">Gameabout</a></td>
+                        <td width="33%"><span class="style1"><a href="http://translate.google.com/translate_t" target="_blank" class="style4">GOOGLE网页翻译</a></span></td>
+                        <td width="33%"><a href="http://news.google.com/news?hl=zh-CN&q=%EB%A7%88%EB%B9%84%EB%85%B8%EA%B8%B0&um=1&ie=UTF-8&sa=N&tab=wn" target="_blank" class="style4">GoogleNews</a></td>
+                        </tr>
+
+						    <tr>
+                        <td width="33%"><span class="style1"><a href="http://mabinogi.wikiwiki.jp/" target="_blank">Mabinogi wiki</a></span></td>
+                        <td width="33%"><a href="http://www.4gamer.net/games/007/G000776/" target="_blank" class="style1">4GAMEer</a></td>
+                        <td width="33%"><span class="style1"><span class="style4"><a href="http://mabi.mmo-search.net/" target="_blank">Mabinogi检索</a></span></span></td>
+                        </tr>
+
+						                      <tr>
+                        <td width="33%" class="style1"><a href="http://www.mabiguru.com/" target="_blank">MabiGuru</a></td>
+                        <td width="33%"><span class="style1"><a href="http://mabinogiworld.com/" target="_blank">Mabinogi world</a></span></td>
+                        <td width="33%" class="style1"></td>
+    </tr>
+
+                    </table>
+</DIV>
+
+<br>
+
+<DIV style="BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #ddd 1px solid; WIDTH: 100%; PADDING-TOP: 10px; BORDER-BOTTOM: #ddd 1px solid; BACKGROUND-COLOR: #fff">
+  <table width="95%" border="0">
+                      <tr>
+                        <td width="33%" class="style1"><input   type=button   value="保存小册子" onClick="document.execCommand   ('SaveAs',true,storyname);" style="background-color: #fbbe63; border:0;padding-top: 2px;COLOR: #666;  WIDTH: 75px">   
+  <script   language="Javascript">  
+  var myDate = new Date(); 
+      var   storyname=myDate.toLocaleDateString()+"洛奇小册子.htm";   
+  </script></td>
+                        <td width="33%"><span class="style1"><a href="http://mabibook.com"  onclick="window.external.addFavorite(document.location.href, document.title);return false;">加入收藏</a></span></td>
+                        <td width="33%" class="style1"></td>
+                      </tr>
+                      <tr>
+                        
+                     <td width="33%" class="style1"></td>
+                        <td class="style1"></td><td width="33%" class="style1"></td>
+                      </tr>
+                      <tr>
+                       <td width="33%" class="style1"></td>
+                        <td class="style1"></td>
+                        <td class="style1"></td>
+                      </tr>
+					                        <tr>
+                       <td width="33%" class="style1"></td>
+                        <td class="style1"></td>
+                        <td class="style1"></td>
+                      </tr>
+                    </table>
+</DIV>
+<br>  
+          </TD>
+              </TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE>
+</DIV>
+</BODY></HTML>

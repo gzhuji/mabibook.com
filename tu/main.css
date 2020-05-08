@@ -1,0 +1,88 @@
+
+* { padding: 0; margin: 0; }
+a:link { text-decoration: none ; color: #336699;font-family:Verdana,"宋体";}
+a:visited { text-decoration: none ; color: #336699;font-family:Verdana,"宋体"; }
+a:active { text-decoration: none }
+a:hover { text-decoration: none ; color: #CC9933;font-family:Verdana,"宋体";}
+body, td {font-size:12px;font-family:Verdana,"宋体";}
+BODY {
+SCROLLBAR-FACE-COLOR: #FFFFFF;
+ SCROLLBAR-HIGHLIGHT-COLOR: #666666;
+ SCROLLBAR-SHADOW-COLOR: #666666;
+ SCROLLBAR-3DLIGHT-COLOR: #FFFFFF;
+ SCROLLBAR-ARROW-COLOR: #666666;
+ SCROLLBAR-TRACK-COLOR: #FFFFFF;
+ SCROLLBAR-DARKSHADOW-COLOR: #FFFFFF;
+ SCROLLBAR-BASE-COLOR: #666666;
+}
+}
+
+
+table {font-size:14px;font-family:Verdana,"宋体";}
+
+table a {color:#03c;font-family:Verdana,"宋体";}
+
+
+
+#top {width:650px;background:#E9EFF7;text-align:right;margin:0 auto;padding:0 5px;}
+#topl {width:650px;float:left;text-align:left;overflow:hidden;}
+
+#logo {width:650px;margin:0 auto;}
+
+ul{margin:0px;padding:0}
+
+li{float:left;list-style:none;padding:20px 0 0 33px;}
+
+.nlogo{width:200px;height:70px;}
+
+#s1 {width:650px;color:#fff;height:20px;margin:0 auto;padding-top:2;clear:both;font-size:14px;text-align:center;color: #666;}
+
+#s1 a {color:#fff;}
+
+#s2 {width:650px!important;width:650px;height:65px!important;height:70px; padding:9px 0;overflow:hidden;margin:0 auto;;font-size:14px;text-align:center;color: #666;}
+
+#s3 {width:650px;height:10px;margin:0 auto;}
+
+#s5 {width:650px!important;width:650px;background:url(img/s4.gif);height:88px!important;height:80px; padding:9px 0;overflow:hidden;margin:0 auto;}
+
+.tit {width:650px;border-bottom:2px dashed #D6E2F0;margin:0 0 5px 0;line-height:180%;margin:0 auto;}
+
+#end {border-top:2px solid #D6E2F0;width:650px;margin:2px auto;padding:5px 0;}
+
+h1 {margin:0;background:url(img/arrow.gif) no-repeat 0 4px;text-indent:20px;font-size:14px;}
+
+.BlueBG{height:28px;}
+
+.list {width:650px;margin:0 auto;}
+
+.list td{border-bottom:1px solid #f2f2f2;padding-left:6px;}
+
+body {
+ font-family: Arial, Helvetica, sans-serif;
+ font-size: 13px;
+}
+#wrapper { 
+ margin: 0 auto;
+ width: 800px;
+}
+#leftcolumn { 
+ color: #333;
+ border: 0px solid #ccc;
+
+ margin: 10px 0px 10px 0px;
+ padding: 10px;
+
+
+ float: left;
+}
+#rightcolumn { 
+ float: right;
+ color: #333;
+ border: 0px solid #ccc;
+ margin: 10px 0px 10px 0px;
+ padding: 10px;
+
+
+ display: inline;
+ position: relative;
+}
